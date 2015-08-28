@@ -1,0 +1,26 @@
+{
+  "name": "redis-connection",
+  "version": "1.0.0",
+  "description": "Re-use a single or pool of redis connections across several modules/files in your app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nelsonic/redis-connection.git"
+  },
+  "keywords": [
+    "redis",
+    "connection",
+    "single",
+    "re-useable",
+    "global"
+  ],
+  "author": "@nelsonic & friends @dwylhq",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/nelsonic/redis-connection/issues"
+  },
+  "homepage": "https://github.com/nelsonic/redis-connection#readme"
+}
