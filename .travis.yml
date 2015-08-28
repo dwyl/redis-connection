@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+  - 0.12
+services:
+  - redis-server
+env:
+  global:
+    - secure: "XvEwqjDPAbMq2turLF5uNcZjfJ7gKjC3ib4zMyaEGFX81HRVW3nN7V7zvrBU6OdOnT4x3waRtsRKVVKVmRnlWzbzSTyZhZQ2xkqEcintifgTms4I/1bBIIyyBj9Xw00xwNjPqCjtPTI2L0Ns9n4YW0M+xh+qrx+f0uqMj5xgSc2NuLDl03W5jzkE8nTVb522yS8c42x2kqLgxbSqfTxX1pdGDUPcQXGJj4zNY3G6uCDbvqqCWB14twLWN+LKQiaeRV9YDJAcys3Us285BgxxD4YLaS36vIvm4zu2e3V9iPciv+I/wMzCpEQR5msSp3mpsXYHApTGKGl69AXpbFXJLxwYtAZiPPlbubYpv6smyKHP51hHxT4vu7lo5ja553bqCTnxTC81rpr2iEcnQZlJcu+eb14u6d+fl2KWQjwbqOIreKJEQHswzcwaaN2fwoMcFV0WR5hPqQAqNlMwDkHKlTa+h1hVDUXEbl78Wc/PHk1Nkw7IISn9xdFyIRlMvlvpwCGChHdPmirmu94t31G5qVeY+Y8ygh7Ju6lQdB8MJBcSxlGpeN2ZQAla1MTbZCgouW/x3buw7l0s2r89Kr60yExcKorOswQnrTyUqhgTOtidBse/9f5T2EohHv1zWNV7v61/y4/Zpf95rl9f2X0ZwL2jiWnXX2ELOx4z62lxILw="
+before_install:
+  - pip install --user codecov
+after_success:
+  - codecov
