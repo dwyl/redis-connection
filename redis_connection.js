@@ -38,7 +38,6 @@ function redis_connection (type) {
     redisClient.auth(rc.auth);
     return redisClient
   }
-
 }
 
 module.exports = redis_connection;
