@@ -4,7 +4,7 @@
   "description": "Re-use a single or pool of redis connections across several modules/files in your app.",
   "main": "redis_connection.js",
   "scripts": {
-    "test": "tape"
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/tape/bin/tape ./test/*.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "decache": "^3.0.3",
+    "istanbul": "^0.3.18",
     "tape": "^4.2.0"
   }
 }
