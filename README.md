@@ -38,3 +38,20 @@ don't want each *file* opening multiple connections to the Redis datastore
   each connection needs to be closed for tape tests to exit*...)
 we decided write a *little* script to instantiate a *single* connection
 to Redis which can be re-used across multiple files.
+
+
+## What?
+
+An ***easy*** way to re-use your ***single*** Redis connection
+(*or* ***pair*** of connections - when using Redis Publish/Subscribe)
+across multiple files in your application.
+
+
+
+
+
+## Need More?
+
+If you need us to support a different Redis-as-a-service provider
+or want to have more configuration options, please let us know!
+[![Join the chat at https://gitter.im/dwyl/chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dwyl/chat/?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
