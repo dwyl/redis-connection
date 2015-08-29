@@ -58,7 +58,7 @@ npm install redis-connection --save
 ### Use in your
 
 ```js
-var redisClient = require('../redis_connection')();
+var redisClient = require('redis-connection')();
 redisClient.set('hello', 'world');
 redisClient.get('hello', function (err, reply) {
   console.log('hello', reply.toString()); // hello world
@@ -68,13 +68,20 @@ redisClient.get('hello', function (err, reply) {
 ### Create a Subscriber Connection
 
 ```js
-var redisSub = require('../redis_connection')('subscriber');
+var redisSub = require('redis-connection')('subscriber');
 redisSub.subscribe("chat:messages:latest", "chat:people:new");
 // see: https://github.com/dwyl/hapi-socketio-redis-chat-example ;-)
 ```
 
+### Using `redis-connection` with `env2`
 
+If you are using [**env2**](https://github.com/dwyl/env2) to load your configuration file, simply require `env2` before requiring `redis-connection`:
 
+```js
+require('env2')('config.env');
+var redisClient = require('redis-connection')();
+// now use your redis connection
+```
 
 ## Need More?
 
