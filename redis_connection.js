@@ -1,25 +1,26 @@
 var redis = require('redis');
-
+var url   = require('url');
 var redisClient;
 var redisSub;
 
+var rc; // redis config
+if (process.env.REDISCLOUD_URL) {
+  var redisURL = url.parse(process.env.REDISCLOUD_URL);
+  rc = {
+    port: redisURL.port,
+    host: redisURL.hostname,
+    auth: redisURL.auth.split(":")[1]
+  }
+}
+else {
+  rc =  {
+    port: 6379,
+    host: '127.0.0.1',
+    auth: null
+  }
+}
+
 function redis_connection (type) {
-  var rc; // redis config
-  if (process.env.REDISCLOUD_URL) {
-    var redisURL = url.parse(process.env.REDISCLOUD_URL);
-    config = {
-      port: redisURL.port,
-      host: redisURL.hostname,
-      auth: redisURL.auth.split(":")[1]
-    }
-  }
-  else {
-    rc =  {
-      port: 6379,
-      host: '127.0.0.1',
-      auth: null
-    }
-  }
   if(type === 'subscriber'){
     if(redisSub && redisSub.connected) {  // create a subscriber connection:
       return redisSub
@@ -39,7 +40,5 @@ function redis_connection (type) {
   }
 
 }
-
-// redis_connection(); // auto run!
 
 module.exports = redis_connection;
