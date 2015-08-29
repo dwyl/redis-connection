@@ -65,6 +65,14 @@ redisClient.get('hello', function (err, reply) {
 });
 ```
 
+### Create a Subscriber Connection
+
+```js
+var redisSub = require('../redis_connection')('subscriber');
+redisSub.subscribe("chat:messages:latest", "chat:people:new");
+// see: https://github.com/dwyl/hapi-socketio-redis-chat-example ;-)
+```
+
 
 
 
