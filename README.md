@@ -18,9 +18,23 @@ At ***dwyl*** *we* ***use Redis everywhere*** *because its* ***fast***!
 > If you're *new* to Redis, checkout our *beginners tutorial*:
 https://github.com/dwyl/learn-redis
 
-Given that we modularise our apps and we
+Given that Redis can handle ***millions of operations per second***,
+it is *unlikely* to be the *bottleneck* in your application/stack.
+
+Where you *can* (*unintentionally*) *create* an issue is by having
+*too many* connections to your Redis Datastore.
+*Don't laugh*, we've seen this happen,
+where people open a *new connection* to Redis for *each* incoming http
+request (*and forget to close them!*) and thus quickly run out
+of available connections to Redis!
+
+Most apps *really* only need ***one*** connection to Redis (*per node.js instance*)
+Or, if you are using Redis' **Publish/Subscribe** feature, you will need ***two*** connections per node.js server; one for a "*standard*" connection (*the* "***Publisher***"") and another as a "***Subscriber***"
+
+
+Given that we *modularise* our apps and we
 don't want each *file* opening multiple connections to the Redis datastore
 (*because* ***Redis connections*** *are a* ***scarce resource*** - [RedisCloud](https://addons.heroku.com/rediscloud) is *30 connections* - *and
   each connection needs to be closed for tape tests to exit*...)
-
-We decided it made sense to use a global connection.
+we decided write a *little* script to instantiate a *single* connection
+to Redis which can be re-used across multiple files.
