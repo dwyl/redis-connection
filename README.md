@@ -47,6 +47,24 @@ An ***easy*** way to re-use your ***single*** Redis connection
 across multiple files in your application.
 
 
+## *How*?
+
+### Install from NPM
+
+```sh
+npm install redis-connection --save
+```
+
+### Use in your
+
+```js
+var redisClient = require('../redis_connection')();
+redisClient.set('hello', 'world');
+redisClient.get('hello', function (err, reply) {
+  console.log('hello', reply.toString()); // hello world
+});
+```
+
 
 
 
