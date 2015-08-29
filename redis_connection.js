@@ -20,13 +20,6 @@ function redis_connection (type) {
       auth: null
     }
   }
-  if(redisClient && redisClient.connected) {
-    return redisClient;
-  } else { // create client and authenticate
-    redisClient = redis.createClient(rc.port, rc.host);
-    redisClient.auth(rc.auth);
-    return redisClient
-  }
   if(type === 'subscriber'){
     if(redisSub && redisSub.connected) {  // create a subscriber connection:
       return redisSub
@@ -37,7 +30,13 @@ function redis_connection (type) {
       return redisSub
     }
   }
-
+  else if(redisClient && redisClient.connected) {
+    return redisClient;
+  } else { // create client and authenticate
+    redisClient = redis.createClient(rc.port, rc.host);
+    redisClient.auth(rc.auth);
+    return redisClient
+  }
 
 }
 
