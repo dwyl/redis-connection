@@ -22,7 +22,7 @@ Given that Redis can handle ***millions of operations per second***,
 it is *unlikely* to be the *bottleneck* in your application/stack.
 
 Where you *can* (*unintentionally*) *create* an issue is by having
-*too many* connections to your Redis Datastore.
+***too many*** **connections** to your Redis Datastore.
 *Don't laugh*, we've seen this happen,
 where people open a *new connection* to Redis for *each* incoming http
 request (*and forget to close them!*) and thus quickly run out
@@ -65,7 +65,13 @@ redisClient.get('hello', function (err, reply) {
 });
 ```
 
-### Create a Subscriber Connection
+### Using Redis Publish / Subscriber ?
+
+You can use the *standard* `redisClient` for *publishing* but
+will need to have a *separate* connection to subscribe on.
+
+Create a *Subscriber* connection by supplying the word subscriber
+when starting the `redis-connection`:
 
 ```js
 var redisSub = require('redis-connection')('subscriber');
