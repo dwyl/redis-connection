@@ -1,7 +1,5 @@
 var redis = require('redis');
 var url   = require('url');
-var redisClient;
-var redisSub;
 
 var rc; // redis config
 if (process.env.REDISCLOUD_URL) {
@@ -20,23 +18,30 @@ else {
   }
 }
 
+var redisClient; // global (avoids duplicate connections!)
+var redisSub;    // global (avoids duplicates!)
+
+function new_connection () {
+  var redis_con = redis.createClient(rc.port, rc.host);
+  redis_con.auth(rc.auth);
+  return redis_con;
+}
+
 function redis_connection (type) {
   if(type === 'subscriber'){
     if(redisSub && redisSub.connected) {  // create a subscriber connection:
-      return redisSub
+      return redisSub;
     }
     else {
-      redisSub = redis.createClient(rc.port, rc.host);
-      redisSub.auth(rc.auth);
-      return redisSub
+      redisSub = new_connection();
+      return redisSub;
     }
   }
   else if(redisClient && redisClient.connected) {
     return redisClient;
   } else { // create client and authenticate
-    redisClient = redis.createClient(rc.port, rc.host);
-    redisClient.auth(rc.auth);
-    return redisClient
+    redisClient = new_connection();
+    return redisClient;
   }
 }
 
