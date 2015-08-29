@@ -1,3 +1,7 @@
+require('env2')('config.env');
+var REDISCLOUD_URL = process.env.REDISCLOUD_URL;
+delete process.env.REDISCLOUD_URL; // delete to ensure we use LOCAL Redis!
+
 var test    = require('tape');
 var decache = require('decache');          // http://goo.gl/JIjK9Y
 
@@ -47,5 +51,6 @@ test('Restore REDISCLOUD_URL for Heroku Compatibility tests', function(t){
   redisSub.end();
   decache('../redis_connection.js');
   t.equal(redisClient.connected, false,  "✓ Connection to LOCAL Closed");
+  process.env.REDISCLOUD_URL = REDISCLOUD_URL; // restore for next text!
   t.end();
 });

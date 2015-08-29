@@ -1,4 +1,3 @@
-require('env2')('config.env');
 var test    = require('tape');
 
 var dir     = __dirname.split('/')[__dirname.split('/').length-1];
