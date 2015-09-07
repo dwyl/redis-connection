@@ -1,6 +1,6 @@
 {
   "name": "redis-connection",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Re-use a single or pool of redis connections across several modules/files in your app.",
   "main": "index.js",
   "scripts": {
@@ -25,12 +25,12 @@
   "homepage": "https://github.com/dwyl/redis-connection#readme",
   "dependencies": {
     "hiredis": "^0.4.1",
-    "redis": "^0.12.1"
+    "redis": "^1.0.0"
   },
   "devDependencies": {
     "decache": "^3.0.3",
     "env2": "^2.0.2",
-    "istanbul": "^0.3.18",
+    "istanbul": "^0.3.19",
     "tape": "^4.2.0"
   }
 }
