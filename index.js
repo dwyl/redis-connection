@@ -14,7 +14,7 @@ else {
   rc =  {
     port: 6379,
     host: '127.0.0.1',
-    auth: null
+    auth: '' // Error: The password has to be of type "string"
   }
 }
 
