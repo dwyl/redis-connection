@@ -2,8 +2,8 @@ var redis = require('redis');
 var url   = require('url');
 
 var rc; // redis config
-if (process.env.REDISCLOUD_URL) {
-  var redisURL = url.parse(process.env.REDISCLOUD_URL);
+if (process.env.REDIS_URL) {
+  var redisURL = url.parse(process.env.REDIS_URL);
   rc = {
     port: redisURL.port,
     host: redisURL.hostname,
