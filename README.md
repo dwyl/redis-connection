@@ -88,6 +88,12 @@ require('env2')('config.env');
 var redisClient = require('redis-connection')();
 // now use your redis connection
 ```
+**Be sure you have defined an environment variable named "REDIS_URL"**
+
+```
+REDIS_URL=redis://127.0.0.1:6379/0
+```
+If the REDIS_URL environment variable is not defined `redis-connection` will use the Redis localhost url (127.0.0.1) on the port 6379
 
 ## Need More?
 
