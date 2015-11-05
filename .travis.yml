@@ -1,11 +1,11 @@
 language: node_js
-node_js:
-  - 0.12
-services:
-  - redis-server
 env:
   global:
   - secure: "jHXh5oYWSXRlgNrDjCNh0I8bA1a3lABbqgwTaQajb0LlpjN/9RymCFjaONqZ0S21oTfTAjbngNoEFiD4aM29MPHgrTXRPcwxLbXvSr37oUgzXrr4DmbUb0WBuZwitxMWnMNdsyBcTkHGMJQz/ObhsF9V97mUkHSJQjZ8BcY+Q8o91rpcoGjEbnmB07i/diBilHREGsN47GhWeXeR6j4my7EdhVJgfu+ctmtAOl2rxwaeLCqJZtForLBLOGDjoKAIhGW+OkOcApeT1EyaweJVWM4yH8FlFEpp6LmqjYS/8NNG54RupmZD2HduidxtcWgIJEQwiZFecTxSQwuZhLnruHtzIZCYFAl0/trZybTYUoSinJpDEgvnX55cgxThVoeErrGxwm8Kuj0QgqL1L2HAS6tYx+IDcZCEn29ff4fu5KjqobYb4Rpxs1Q21XeK4VngXyqzUHCA9LG77Ft3xHwEyML0H5/GWkAUTeXzpuLm6/ZGJH4Z718svixBKhg6h4cli19Srg3mcQRZb+qGuBx1VYuIUFx3oeRWhk1OK9vZ6MWyAtLKH4/s6mG9Ba6n5e8S8tgANTjfhCv16pYjzJOBNNG5yMOKlfq24YYcBa4EY9N18jAHvxXTpzUKJlUvf31LHFn6Dtdr7VjhpRgfvN+Z7icVxukAob1D4wgbS8Hs1ng="
+node_js:
+  - 4.2.2
+services:
+  - redis-server
 before_install:
   - pip install --user codecov
 after_success:
