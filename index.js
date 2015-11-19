@@ -37,10 +37,10 @@ function redis_connection (type) {
       return redisSub;
     }
   }
-  else if(redisClient && redisClient.connected) {
-    return redisClient;
-  } else { // create client and authenticate
+  else if(!redisClient) {
     redisClient = new_connection();
+    return redisClient;
+  }else{
     return redisClient;
   }
 }
