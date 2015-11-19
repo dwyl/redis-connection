@@ -40,6 +40,8 @@ function redis_connection (type) {
   else if(!redisClient) {
     redisClient = new_connection();
     return redisClient;
+  }else{
+    return redisClient;
   }
 }
 
