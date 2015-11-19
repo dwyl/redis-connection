@@ -7,7 +7,7 @@ if (process.env.REDISCLOUD_URL) {
   rc = {
     port: redisURL.port,
     host: redisURL.hostname,
-    auth: redisURL.auth.split(":")[1]
+    auth: redisURL.auth ? redisURL.auth.split(":")[1] : '' // empty string
   }
 }
 else {
