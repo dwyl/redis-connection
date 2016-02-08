@@ -30,7 +30,7 @@
   "devDependencies": {
     "decache": "^3.0.3",
     "env2": "^2.0.4",
-    "istanbul": "^0.4.0",
-    "tape": "^4.2.2"
+    "istanbul": "^0.4.2",
+    "tape": "^4.4.0"
   }
 }
