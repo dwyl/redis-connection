@@ -94,3 +94,12 @@ var redisClient = require('redis-connection')();
 If you need us to support a different Redis-as-a-service provider
 or want to have more configuration options, please let us know!
 [![Join the chat at https://gitter.im/dwyl/chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dwyl/chat/?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+## *Contributors*
+
+As with all #**dwyl** projects
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/redis-connection/issues)
+
+If you want to help improve/update/extend this module,
+please ask us for access to the ***environment variables***
+(*keys*) to RedisCloud so you can test your modifications *locally*: 
