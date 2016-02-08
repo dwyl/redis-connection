@@ -100,6 +100,8 @@ or want to have more configuration options, please let us know!
 As with all #**dwyl** projects
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/redis-connection/issues)
 
+### Environment Variables
+
 If you want to help improve/update/extend this module,
 please ask us for access to the ***environment variables***
-(*keys*) to RedisCloud so you can test your modifications *locally*: 
+(`config.env` file) with `REDISCLOUD_URL` so you can test your modifications *locally*.

@@ -4,7 +4,7 @@
   "description": "Re-use a single or pool of redis connections across several modules/files in your app.",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/istanbul cover ./node_modules/tape/bin/tape ./test/*.js"
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/tape/bin/tape ./test/*.test.js"
   },
   "repository": {
     "type": "git",
