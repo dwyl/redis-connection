@@ -38,7 +38,7 @@ function redis_connection (type) {
 module.exports = redis_connection;
 
 module.exports.kill = function(type) {
-  type = type || 'DEFAULT'; // allow infinite types of connections
+  type = type || 'DEFAULT'; // kill specific connection or default one
   CON[type].end();
   delete CON[type];
 }
