@@ -1,6 +1,6 @@
 {
   "name": "redis-connection",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "Re-use a single or pool of redis connections across several modules/files in your app.",
   "main": "index.js",
   "scripts": {
@@ -14,6 +14,7 @@
     "redis",
     "connection",
     "single",
+    "multiple",
     "re-useable",
     "global"
   ],
@@ -24,7 +25,7 @@
   },
   "homepage": "https://github.com/dwyl/redis-connection#readme",
   "dependencies": {
-    "redis": "^2.3.0"
+    "redis": "^2.4.2"
   },
   "devDependencies": {
     "decache": "^3.0.3",
