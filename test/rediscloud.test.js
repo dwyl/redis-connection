@@ -5,18 +5,21 @@ var file    = dir + __filename.replace(__dirname, '') + " -> ";
 test(file + " Confirm RedisCloud is accessible GET/SET", function(t) {
   var path = require('path');
   var env = path.resolve(__dirname + '/../config.env'); // our .env file in development
-  console.log('>> ', env);
+  // console.log('>> ', env);
   require('env2')(env);
 
-  console.log('process.env.REDISCLOUD_URL >> ', process.env.REDISCLOUD_URL);
+  // console.log('process.env.REDISCLOUD_URL >> ', process.env.REDISCLOUD_URL);
   var redisClient = require('../index.js')();
-  redisClient.set('redis', 'working');
-  // console.log("✓ Redis Client connected to: " + redisClient.address);
-  t.ok(redisClient.address !== '127.0.0.1:6379', "✓ Redis Client connected to: " + redisClient.address)
-  redisClient.get('redis', function (err, reply) {
-    t.equal(reply.toString(), 'working', '✓ RedisCLOUD is ' + reply.toString());
-    redisClient.end();   // ensure redis con closed! - \\
-    t.equal(redisClient.connected, false, "✓ Connection to RedisCloud Closed");
-    t.end();
+  t.ok(redisClient.address !== '127.0.0.1:6379', "✓ Redis Client connected to: " + redisClient.address);
+
+  redisClient.set('redis', 'working', function(err, res){
+    // console.log("✓ Redis Client connected to: " + redisClient.address);
+    redisClient.get('redis', function (err, reply) {
+      t.equal(reply.toString(), 'working', '✓ RedisCLOUD is ' + reply.toString());
+      redisClient.end();   // ensure redis con closed! - \\
+      t.equal(redisClient.connected, false, "✓ Connection to RedisCloud Closed");
+      require('../index.js').killall();
+      t.end();
+    });
   });
 });

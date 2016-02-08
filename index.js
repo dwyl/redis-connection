@@ -27,25 +27,26 @@ function new_connection () {
 }
 
 function redis_connection (type) {
-  type = type || 'REGULAR'; // allow infinite types of connections
-  if(!CON.type || !CON.type.connected){
-    CON.type = new_connection();
+  type = type || 'DEFAULT'; // allow infinite types of connections
+
+  if(!CON[type] || !CON[type].connected){
+    CON[type] = new_connection();
   }
-  return CON.type;
+  return CON[type];
 }
 
 module.exports = redis_connection;
-// 
-// module.exports.kill = function(type) {
-//   type = type || 'REGULAR'; // allow infinite types of connections
-//   console.log('TYPE:',type);
-//   CON.type.end();
-//   delete CON.type;
-// }
-//
-// module.exports.killall = function() {
-//   Object.keys(CON).forEach(function(k){
-//     CON[k].end();
-//     delete CON[k];
-//   })
-// }
+
+module.exports.kill = function(type) {
+  type = type || 'DEFAULT'; // allow infinite types of connections
+  CON[type].end();
+  delete CON[type];
+}
+
+module.exports.killall = function() {
+  var keys = Object.keys(CON);
+  keys.forEach(function(k){
+    CON[k].end();
+    delete CON[k];
+  })
+}
