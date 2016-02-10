@@ -1,6 +1,6 @@
-require('env2')('config.env');
-var REDISCLOUD_URL = process.env.REDISCLOUD_URL;
-delete process.env.REDISCLOUD_URL; // delete to ensure we use LOCAL Redis!
+// require('env2')('config.env');
+// var REDISCLOUD_URL = process.env.REDISCLOUD_URL;
+// delete process.env.REDISCLOUD_URL; // delete to ensure we use LOCAL Redis!
 
 var test    = require('tape');
 var decache = require('decache');          // http://goo.gl/JIjK9Y
@@ -8,25 +8,27 @@ var decache = require('decache');          // http://goo.gl/JIjK9Y
 var dir     = __dirname.split('/')[__dirname.split('/').length-1];
 var file    = dir + __filename.replace(__dirname, '') + " -> ";
 
-var redisClient = require('../index.js')();
-test(file +" Connect to LOCAL Redis instance and GET/SET", function(t) {
-  t.equal(redisClient.address, '127.0.0.1:6379',
-  "✓ Redis Client connected to: " + redisClient.address)
-  redisClient.set('redis', 'LOCAL');
-  redisClient.get('redis', function (err, reply) {
-    t.equal(reply.toString(), 'LOCAL', '✓ LOCAL Redis is ' +reply.toString());
-    t.end();
+test(file +" Connect to LOCAL Redis instance as Subscriber", function(t) {
+  var redisSub = require('../index.js')('subscriber');
+  t.equal(redisSub.address, '127.0.0.1:6379',
+  "✓ Redis Client connected to: " + redisSub.address)
+  redisSub.set('redis', 'SUBSCRIBER', function(err, reply){
+    redisSub.get('redis', function (err, reply) {
+      t.equal(reply.toString(), 'SUBSCRIBER', '✓ LOCAL Redis is ' +reply.toString());
+      t.end();
+    });
   });
 });
 
-var redisSub = require('../index.js')('subscriber');
 test(file +" Connect to LOCAL Redis instance and GET/SET", function(t) {
-  t.equal(redisSub.address, '127.0.0.1:6379',
-  "✓ Redis Client connected to: " + redisSub.address)
-  redisSub.set('redis', 'LOCAL');
-  redisSub.get('redis', function (err, reply) {
-    t.equal(reply.toString(), 'LOCAL', '✓ LOCAL Redis is ' +reply.toString());
-    t.end();
+  var redisClient = require('../index.js')();
+  t.equal(redisClient.address, '127.0.0.1:6379',
+  "✓ Redis Client connected to: " + redisClient.address)
+  redisClient.set('redis', 'LOCAL', function(err, reply){
+    redisClient.get('redis', function (err, reply) {
+      t.equal(reply.toString(), 'LOCAL', '✓ LOCAL Redis is ' +reply.toString());
+      t.end();
+    });
   });
 });
 
@@ -46,11 +48,11 @@ test('Require an existing Redis SUBSCRIBER connectiong', function(t){
   });
 });
 
-test('Restore REDISCLOUD_URL for Heroku Compatibility tests', function(t){
-  redisClient.end();   // ensure redis con closed!
-  redisSub.end();
+test('Close Conection & Reset for Heroku Compatibility tests', function(t){
+  // redisClient.end();
+  // redisSub.end();
+  require('../index.js').killall(); // close all connections
   decache('../index.js');
   t.equal(redisClient.connected, false,  "✓ Connection to LOCAL Closed");
-  process.env.REDISCLOUD_URL = REDISCLOUD_URL; // restore for next text!
   t.end();
 });

@@ -24,19 +24,20 @@ it is *unlikely* to be the *bottleneck* in your application/stack.
 Where you *can* (*unintentionally*) *create* an issue is by having
 ***too many*** **connections** to your Redis Datastore.
 *Don't laugh*, we've seen this happen,
-where people open a *new connection* to Redis for *each* incoming http
-request (*and forget to close them!*) and thus quickly run out
+where people open a ***new connection*** to Redis
+for ***each*** **incoming http request**
+(*and forget to close them!*) and thus quickly run out
 of available connections to Redis!
 
 Most apps *really* only need ***one*** connection to Redis (*per node.js instance*)
-Or, if you are using Redis' **Publish/Subscribe** feature, you will need ***two*** connections per node.js server; one for a "*standard*" connection (*the* "***Publisher***"") and another as a "***Subscriber***"
+Or, if you are using Redis' **Publish/Subscribe** feature, you will need ***two*** connections per node.js server; one for a "*standard*" connection (*the* "***Publisher***"") and another as a "***Subscriber***".
 
 
 Given that we *modularise* our apps and we
 don't want each *file* opening multiple connections to the Redis datastore
-(*because* ***Redis connections*** *are a* ***scarce resource*** - [RedisCloud](https://addons.heroku.com/rediscloud) is *30 connections* - *and
+(*because* ***Redis connections*** *are a* ***scarce resource*** - e.g: [RedisCloud](https://addons.heroku.com/rediscloud) is *30 connections* - *and
   each connection needs to be closed for tape tests to exit*...)
-we decided write a *little* script to instantiate a *single* connection
+we decided write a *little* script to *instantiate* a *single* connection
 to Redis which can be re-used across multiple files.
 
 
@@ -44,7 +45,8 @@ to Redis which can be re-used across multiple files.
 
 An ***easy*** way to re-use your ***single*** Redis connection
 (*or* ***pair*** of connections - when using Redis Publish/Subscribe)
-across multiple files in your application.
+across multiple files/handlers in your application
+and *close once* at the end of your tests.
 
 
 ## *How*?
@@ -58,7 +60,7 @@ npm install redis-connection --save
 ### Use in your
 
 ```js
-var redisClient = require('redis-connection')();
+var redisClient = require('redis-connection')(); // require & connect
 redisClient.set('hello', 'world');
 redisClient.get('hello', function (err, reply) {
   console.log('hello', reply.toString()); // hello world
@@ -79,12 +81,44 @@ redisSub.subscribe("chat:messages:latest", "chat:people:new");
 // see: https://github.com/dwyl/hapi-socketio-redis-chat-example ;-)
 ```
 
+### Closing your Connection(s)
+
+Closing your connections is easy.
+
+```js
+var redisClient = require('redis-connection')(); // require & connect
+redisClient.set('hello', 'world');
+redisClient.get('hello', function (err, reply) {
+  console.log('hello', reply.toString()); // hello world
+  redisClient.end();
+});
+```
+
+If you have created *multiple* connections in your app
+(*you would do this to use Redis' Publish/Subscribe feature*),
+we have a simple method to "*Close All*" the connections
+you have opened in a single command: `killall()`
+
+e.g:
+
+```js
+var redisClient = require('redis-connection')(); // require & connect
+var redisSub = require('redis-connection')('subscriber');
+
+// do things with redisClient and redisSub in your app...
+// when you want to close both connections simply call:
+require('redis-connection').killall();
+```
+
+
+
+
 ### Using `redis-connection` with `env2`
 
 If you are using [**env2**](https://github.com/dwyl/env2) to load your configuration file, simply require `env2` before requiring `redis-connection`:
 
 ```js
-require('env2')('config.env');
+require('env2')('config.env'); // load the redis URL
 var redisClient = require('redis-connection')();
 // now use your redis connection
 ```
@@ -94,3 +128,14 @@ var redisClient = require('redis-connection')();
 If you need us to support a different Redis-as-a-service provider
 or want to have more configuration options, please let us know!
 [![Join the chat at https://gitter.im/dwyl/chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dwyl/chat/?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+## *Contributors*
+
+As with all #**dwyl** projects
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/redis-connection/issues)
+
+### Environment Variables
+
+If you want to help improve/update/extend this module,
+please ask us for access to the ***environment variables***
+(`config.env` file) with `REDISCLOUD_URL` so you can test your modifications *locally*.
