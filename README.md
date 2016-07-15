@@ -57,7 +57,7 @@ and *close once* at the end of your tests.
 npm install redis-connection --save
 ```
 
-### Use in your
+### Use in your code
 
 ```js
 var redisClient = require('redis-connection')(); // require & connect
@@ -109,9 +109,6 @@ var redisSub = require('redis-connection')('subscriber');
 // when you want to close both connections simply call:
 require('redis-connection').killall();
 ```
-
-
-
 
 ### Using `redis-connection` with `env2`
 
