@@ -118,7 +118,7 @@ require('redis-connection').killall();
 If you are using [**env2**](https://github.com/dwyl/env2) to load your configuration file, simply require `env2` before requiring `redis-connection`:
 
 ```js
-require('env2')('config.env'); // load the redis URL
+require('env2')('.env'); // load the redis URL
 var redisClient = require('redis-connection')();
 // now use your redis connection
 ```
@@ -138,4 +138,4 @@ As with all #**dwyl** projects
 
 If you want to help improve/update/extend this module,
 please ask us for access to the ***environment variables***
-(`config.env` file) with `REDISCLOUD_URL` so you can test your modifications *locally*.
+(`.env` file) with `REDISCLOUD_URL` so you can test your modifications *locally*.
