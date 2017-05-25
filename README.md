@@ -128,7 +128,7 @@ or want to have more configuration options, please let us know!
 
 ## *Contributors*
 
-As with all #**dwyl** projects
+As with all @dwyl projects
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/redis-connection/issues)
 
 ### Environment Variables
