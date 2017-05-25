@@ -13,8 +13,8 @@ if (process.env.REDISCLOUD_URL) {
 else {
   rc =  {
     port: 6379,
-    host: '127.0.0.1',
-    auth: '' // Error: The password has to be of type "string"
+    host: '127.0.0.1'
+    // auth: '' no auth on localhost see: https://git.io/vH3TN
   }
 }
 
@@ -22,7 +22,9 @@ var CON = {}; // store redis connections as Object
 
 function new_connection () {
   var redis_con = redis.createClient(rc.port, rc.host);
-  redis_con.auth(rc.auth);
+  if (process.env.REDISCLOUD_URL) { // only auth on CI/Stage/Prod 
+    redis_con.auth(rc.auth);        // see: https://git.io/vH3TN
+  }
   return redis_con;
 }
 
