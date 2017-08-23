@@ -14,7 +14,7 @@ test(file + " Confirm RedisCloud is accessible GET/SET", function(t) {
     console.log("✓ Redis Client connected to: " + redisClient.address);
     redisClient.get('redis', function (err, reply) {
       t.equal(reply.toString(), 'working', '✓ RedisCLOUD is ' + reply.toString());
-      redisClient.end();   // ensure redis con closed! - \\
+      redisClient.end(true);   // ensure redis con closed! - \\
       t.equal(redisClient.connected, false, "✓ Connection to RedisCloud Closed");
       delete process.env.REDISCLOUD_URL;
       require('decache')('../index.js');

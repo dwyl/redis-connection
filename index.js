@@ -41,14 +41,14 @@ module.exports = redis_connection;
 
 module.exports.kill = function(type) {
   type = type || 'DEFAULT'; // kill specific connection or default one
-  CON[type].end();
+  CON[type].end(true);
   delete CON[type];
 }
 
 module.exports.killall = function() {
   var keys = Object.keys(CON);
   keys.forEach(function(k){
-    CON[k].end();
+    CON[k].end(true);
     delete CON[k];
   })
 }
