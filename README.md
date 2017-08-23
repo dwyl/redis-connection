@@ -90,7 +90,7 @@ var redisClient = require('redis-connection')(); // require & connect
 redisClient.set('hello', 'world');
 redisClient.get('hello', function (err, reply) {
   console.log('hello', reply.toString()); // hello world
-  redisClient.end();
+  redisClient.end(true); // this will "flush" any outstanding requests to redis
 });
 ```
 

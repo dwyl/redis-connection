@@ -11,7 +11,7 @@ test(file +" Connect to LOCAL Redis instance CLOSED in Previous Test", function(
   redisClient.set('redis', 'LOCAL', function(err,reply){
     redisClient.get('redis', function (err, reply) {
       t.equal(reply.toString(), 'LOCAL', '✓ LOCAL Redis is ' +reply.toString());
-      redisClient.end();   // ensure redis con closed! - \\
+      redisClient.end(true);   // ensure redis con closed! - \\
       t.equal(redisClient.connected, false, "✓ Connection to Redis Closed");
       t.end();
     });
@@ -26,7 +26,7 @@ test(file +" Connect to LOCAL Redis instance Which was CLOSED in Previous Test",
   redisClient.set('redis', 'RE-CONNECTED', function(err, reply){
     redisClient.get('redis', function (err, reply) {
       t.equal(reply.toString(), 'RE-CONNECTED', '✓ LOCAL Redis is ' +reply.toString());
-      redisClient.end();   // ensure redis con closed! - \\
+      redisClient.end(true);   // ensure redis con closed! - \\
       decache('../index.js');
       t.end();
     });

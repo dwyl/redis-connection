@@ -49,8 +49,6 @@ test('Require an existing Redis SUBSCRIBER connectiong', function(t){
 });
 
 test('Close Conection & Reset for Heroku Compatibility tests', function(t){
-  // redisClient.end();
-  // redisSub.end();
   require('../index.js').killall(); // close all connections
   decache('../index.js');
   t.equal(redisClient.connected, false,  "✓ Connection to LOCAL Closed");
