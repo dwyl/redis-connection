@@ -3,6 +3,7 @@ var dir     = __dirname.split('/')[__dirname.split('/').length-1];
 var file    = dir + __filename.replace(__dirname, '') + " -> ";
 
 test(file + " Confirm RedisCloud is accessible GET/SET", function(t) {
+  require('decache')('../index.js');
   require('env2')('.env');
   console.log(' - - - - - - - - - - - - - process.env:');
   // console.log(process.env);
