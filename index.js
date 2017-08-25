@@ -21,17 +21,17 @@ else {
 var CON = {}; // store redis connections as Object
 
 function new_connection () {
-  var redis_con = redis.createClient(rc.port, rc.host);
-  if (process.env.REDISCLOUD_URL) { // only auth on CI/Stage/Prod 
-    redis_con.auth(rc.auth);        // see: https://git.io/vH3TN
-  }
-  return redis_con;
+    var redis_con = redis.createClient(rc.port, rc.host);
+    if (process.env.REDISCLOUD_URL && rc.auth) { // only auth on CI/Stage/Prod 
+      redis_con.auth(rc.auth);        // see: https://git.io/vH3TN
+    }
+    return redis_con;
 }
 
 function redis_connection (type) {
   type = type || 'DEFAULT'; // allow infinite types of connections
 
-  if(!CON[type] || !CON[type].connected){
+  if (!CON[type] || !CON[type].connected) {
     CON[type] = new_connection();
   }
   return CON[type];
@@ -52,3 +52,25 @@ module.exports.killall = function() {
     delete CON[k];
   })
 }
+
+/**
+ * In the event of a failed connection we don't want our Node.js App to "Die"!
+ * rather we want to report that the connection failed but then keep running...
+ * see: github.com/dwyl/redis-connection/issues/38
+ * @param {Object} err - the error Object thrown by Redis (standard node error)
+ * @returns {Object} err - unmodified error
+ */
+var reported; // bit 
+function report_error (err) {
+  if (!reported && err.syscall === 'connect' && err.code === 'ECONNREFUSED') {
+    reported = true; // only report the error once.
+    console.log('- - - - - - - - Redis Connection Error: - - - - - - - - ')
+    console.error(err);
+    console.log('- - - - - - - - - - - - - - - - - - - - - - - - - - - - ')  
+  }
+  return err;
+}
+
+process.on('uncaughtException', report_error);
+
+module.exports.report_error = report_error;
