@@ -9,7 +9,7 @@ and closed ***once*** at the end of tests.
 [![Dependency Status](https://david-dm.org/dwyl/redis-connection.svg)](https://david-dm.org/dwyl/redis-connection)
 [![devDependency Status](https://david-dm.org/dwyl/redis-connection/dev-status.svg)](https://david-dm.org/dwyl/redis-connection#info=devDependencies)
 <!-- [![HitCount](https://hitt.herokuapp.com/nelsonic/redis-connection.svg)](https://github.com/dwyl/redis-connection) -->
-
+[![npm](https://img.shields.io/npm/v/redis-connection.svg)](https://www.npmjs.com/package/redis-connection)
 
 ## Why?
 
@@ -136,3 +136,23 @@ As with all @dwyl projects
 If you want to help improve/update/extend this module,
 please ask us for access to the ***environment variables***
 (`.env` file) with `REDISCLOUD_URL` so you can test your modifications *locally*.
+
+
+### Failed Connection ?
+
+If you are seeing a "_Redis Connection Error_" message in your terminal, e.g:
+
+```
+- - - - - - - - Redis Connection Error: - - - - - - - -
+{ Error: 'Redis connection to 127.0.0.1:6380 failed',
+  code: 'ECONNREFUSED',
+  errno: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '127.0.0.1',
+  port: 4321 }
+- - - - - - - - - - - - - - - - - - - - - - - - - - - -
+```
+
+Either your local instance of Redis is not running or is running on a
+different port from the standard which is **6379**.
+Confirm Redis is running then try again!
