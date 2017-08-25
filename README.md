@@ -9,7 +9,7 @@ and closed ***once*** at the end of tests.
 [![Dependency Status](https://david-dm.org/dwyl/redis-connection.svg)](https://david-dm.org/dwyl/redis-connection)
 [![devDependency Status](https://david-dm.org/dwyl/redis-connection/dev-status.svg)](https://david-dm.org/dwyl/redis-connection#info=devDependencies)
 <!-- [![HitCount](https://hitt.herokuapp.com/nelsonic/redis-connection.svg)](https://github.com/dwyl/redis-connection) -->
-
+[![npm](https://img.shields.io/npm/v/redis-connection.svg)](https://www.npmjs.com/package/redis-connection)
 
 ## Why?
 
