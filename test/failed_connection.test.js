@@ -3,7 +3,7 @@ var dir  = __dirname.split('/')[__dirname.split('/').length-1];
 var file = dir + __filename.replace(__dirname, '') + " > ";
 var test = require('tape');
 var decache = require('decache'); // http://goo.gl/JIjK9Y
-var REDISCLOUD_URL = process.env.REDISCLOUD_URL
+var REDISCLOUD_URL = process.env.REDISCLOUD_URL; // save valid REDISCLOUD_URL
 
 
 test(file + 'No (fatal) error is thrown when connection fails', function (t) {
@@ -36,5 +36,5 @@ test(file + 'functional test of report_error()', function (t) {
 
 test.onFinish(function () {
   decache('../index.js');
-  process.env.REDISCLOUD_URL = REDISCLOUD_URL;
+  process.env.REDISCLOUD_URL = REDISCLOUD_URL; // restore valid
 })
