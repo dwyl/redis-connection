@@ -1,14 +1,15 @@
 {
-  "name": "redis-connection",
-  "version": "5.4.0",
-  "description": "Re-use a single or pool of redis connections across several modules/files in your app.",
+  "name": "redis-connection-manager",
+  "version": "1.0.0",
+  "description": "Re-use a single or pool of redis connections across several modules/files in your app. Added rejson module as well.",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/istanbul cover ./node_modules/tape/bin/tape ./test/*.test.js"
   },
+  "homepage": "https://github.com/codeslayer1/redis-connection",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dwyl/redis-connection.git"
+    "url": "https://github.com/codeslayer1/redis-connection"
   },
   "keywords": [
     "redis",
@@ -16,14 +17,14 @@
     "single",
     "multiple",
     "re-useable",
-    "global"
+    "global",
+    "rejson"
   ],
-  "author": "@nelsonic & friends @dwylhq",
+  "author": "@nelsonic & friends @dwylhq, edited_by@codeslayer",
   "license": "GPL-2.0",
   "bugs": {
-    "url": "https://github.com/dwyl/redis-connection/issues"
+    "url": "https://github.com/codeslayer1/redis-connection/issues"
   },
-  "homepage": "https://github.com/dwyl/redis-connection#readme",
   "dependencies": {
     "redis": "^2.8.0"
   },
