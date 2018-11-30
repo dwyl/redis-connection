@@ -1,5 +1,6 @@
 var redis = require('redis');
 var url   = require('url');
+var rejson = require('redis-rejson');
 
 var rc; // redis config
 if (process.env.REDISCLOUD_URL) {
@@ -21,11 +22,16 @@ else {
 var CON = {}; // store redis connections as Object
 
 function new_connection () {
-    var redis_con = redis.createClient(rc.port, rc.host);
-    if (process.env.REDISCLOUD_URL && rc.auth) { // only auth on CI/Stage/Prod 
-      redis_con.auth(rc.auth);        // see: https://git.io/vH3TN
-    }
-    return redis_con;
+  //enable rejson if ENABLE_REJSON flag is set (the flag can have any value, we only check if it is set or not)
+  if(process.env.ENABLE_REJSON){
+    rejson(redis);
+  }
+
+  var redis_con = redis.createClient(rc.port, rc.host);
+  if (process.env.REDISCLOUD_URL && rc.auth) { // only auth on CI/Stage/Prod
+    redis_con.auth(rc.auth);        // see: https://git.io/vH3TN
+  }
+  return redis_con;
 }
 
 function redis_connection (type) {
