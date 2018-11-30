@@ -1,6 +1,6 @@
 {
   "name": "redis-connection-manager",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Re-use a single or pool of redis connections across several modules/files in your app. Added rejson module as well.",
   "main": "index.js",
   "scripts": {
@@ -26,13 +26,13 @@
     "url": "https://github.com/codeslayer1/redis-connection/issues"
   },
   "dependencies": {
-    "redis": "^2.8.0"
+    "redis": "^2.8.0",
+    "redis-rejson": "^1.0.0"
   },
   "devDependencies": {
     "decache": "^4.1.0",
     "env2": "^2.2.0",
     "istanbul": "^0.4.5",
-    "tape": "^4.8.0",
-    "redis-rejson": "^1.0.0"
+    "tape": "^4.8.0"
   }
 }
