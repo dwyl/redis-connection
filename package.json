@@ -25,7 +25,8 @@
   },
   "homepage": "https://github.com/dwyl/redis-connection#readme",
   "dependencies": {
-    "redis": "^2.8.0"
+    "redis": "^2.8.0",
+    "redis-rejson": "^1.0.0"
   },
   "devDependencies": {
     "decache": "^4.1.0",

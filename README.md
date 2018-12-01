@@ -120,6 +120,16 @@ var redisClient = require('redis-connection')();
 // now use your redis connection
 ```
 
+### Using `rejson` with `redis-connection-manager`
+
+If you are using `rejson` module with your Redis build, you can enable rejson commands by setting the ENABLE_REJSON flag before requiring `redis-connection`.
+
+```js
+process.env.ENABLE_REJSON = true;
+var redisClient = require('redis-connection')();
+// now use your redis connection
+````
+
 ## Need More?
 
 If you need us to support a different Redis-as-a-service provider

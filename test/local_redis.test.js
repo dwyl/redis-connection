@@ -54,3 +54,16 @@ test('Close Conection & Reset for Heroku Compatibility tests', function(t){
   t.equal(redisClient.connected, false,  "✓ Connection to LOCAL Closed");
   t.end();
 });
+
+test(file +" Connect to LOCAL Redis instance with ReJSON enabled and use ReJSON functions", function(t) {
+  process.env.ENABLE_REJSON = true;
+  var redisClient = require('../index.js')();
+  t.equal(redisClient.address, '127.0.0.1:6379',
+      "✓ Redis Client connected to: " + redisClient.address);
+  redisClient.json_set('test', '.', 'LOCAL', function (err, reply) {
+      redisClient.json_get('test', function (err, reply) {
+          t.equal(reply.toString(), 'LOCAL', '✓ LOCAL Redis is ' +reply.toString());
+          t.end();
+      });
+  });
+});
