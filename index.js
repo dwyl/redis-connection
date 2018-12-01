@@ -2,8 +2,8 @@ var redis = require('redis');
 var url   = require('url');
 
 var rc; // redis config
-if (process.env.REDISCLOUD_URL) {
-  var redisURL = url.parse(process.env.REDISCLOUD_URL);
+if (process.env.REDIS_URL || process.env.REDISCLOUD_URL) {
+  var redisURL = url.parse(process.env.REDIS_URL || process.env.REDISCLOUD_URL);
   rc = {
     port: redisURL.port,
     host: redisURL.hostname,
@@ -22,7 +22,7 @@ var CON = {}; // store redis connections as Object
 
 function new_connection () {
     var redis_con = redis.createClient(rc.port, rc.host);
-    if (process.env.REDISCLOUD_URL && rc.auth) { // only auth on CI/Stage/Prod 
+    if (process.env.REDISCLOUD_URL && rc.auth) { // only auth on CI/Stage/Prod
       redis_con.auth(rc.auth);        // see: https://git.io/vH3TN
     }
     return redis_con;
@@ -60,13 +60,13 @@ module.exports.killall = function() {
  * @param {Object} err - the error Object thrown by Redis (standard node error)
  * @returns {Object} err - unmodified error
  */
-var reported; // bit 
+var reported; // bit
 function report_error (err) {
   if (!reported && err.syscall === 'connect' && err.code === 'ECONNREFUSED') {
     reported = true; // only report the error once.
     console.log('- - - - - - - - Redis Connection Error: - - - - - - - - ')
     console.error(err);
-    console.log('- - - - - - - - - - - - - - - - - - - - - - - - - - - - ')  
+    console.log('- - - - - - - - - - - - - - - - - - - - - - - - - - - - ')
   }
   return err;
 }
