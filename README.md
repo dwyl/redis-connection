@@ -1,9 +1,15 @@
-# Redis Connection Manager
+# Redis Connection
 
-A ***Global Redis Connection Manager*** that can be used anywhere in your app
+A ***Global Redis Connection*** that can be used anywhere in your app
 and closed ***once*** at the end of tests.
 
-[![npm](https://img.shields.io/npm/v/redis-connection-manager.svg)](https://www.npmjs.com/package/redis-connection-manager)
+[![Build Status](https://travis-ci.org/dwyl/redis-connection.svg)](https://travis-ci.org/dwyl/redis-connection)
+[![Code Climate](https://codeclimate.com/github/dwyl/redis-connection/badges/gpa.svg)](https://codeclimate.com/github/dwyl/redis-connection)
+[![codecov.io](http://codecov.io/github/dwyl/redis-connection/coverage.svg?branch=master)](http://codecov.io/github/dwyl/redis-connection?branch=master)
+[![Dependency Status](https://david-dm.org/dwyl/redis-connection.svg)](https://david-dm.org/dwyl/redis-connection)
+[![devDependency Status](https://david-dm.org/dwyl/redis-connection/dev-status.svg)](https://david-dm.org/dwyl/redis-connection#info=devDependencies)
+<!-- [![HitCount](https://hitt.herokuapp.com/nelsonic/redis-connection.svg)](https://github.com/dwyl/redis-connection) -->
+[![npm](https://img.shields.io/npm/v/redis-connection.svg)](https://www.npmjs.com/package/redis-connection)
 
 ## Why?
 
@@ -48,13 +54,13 @@ and *close once* at the end of your tests.
 ### Install from NPM
 
 ```sh
-npm install redis-connection-manager --save
+npm install redis-connection --save
 ```
 
 ### Use in your code
 
 ```js
-var redisClient = require('redis-connection-manager')(); // require & connect
+var redisClient = require('redis-connection')(); // require & connect
 redisClient.set('hello', 'world');
 redisClient.get('hello', function (err, reply) {
   console.log('hello', reply.toString()); // hello world
@@ -67,10 +73,10 @@ You can use the *standard* `redisClient` for *publishing* but
 will need to have a *separate* connection to subscribe on.
 
 Create a *Subscriber* connection by supplying the word subscriber
-when starting the `redis-connection-manager`:
+when starting the `redis-connection`:
 
 ```js
-var redisSub = require('redis-connection-manager')('subscriber');
+var redisSub = require('redis-connection')('subscriber');
 redisSub.subscribe("chat:messages:latest", "chat:people:new");
 // see: https://github.com/dwyl/hapi-socketio-redis-chat-example ;-)
 ```
@@ -80,7 +86,7 @@ redisSub.subscribe("chat:messages:latest", "chat:people:new");
 Closing your connections is easy.
 
 ```js
-var redisClient = require('redis-connection-manager')(); // require & connect
+var redisClient = require('redis-connection')(); // require & connect
 redisClient.set('hello', 'world');
 redisClient.get('hello', function (err, reply) {
   console.log('hello', reply.toString()); // hello world
@@ -96,31 +102,31 @@ you have opened in a single command: `killall()`
 e.g:
 
 ```js
-var redisClient = require('redis-connection-manager')(); // require & connect
-var redisSub = require('redis-connection-manager')('subscriber');
+var redisClient = require('redis-connection')(); // require & connect
+var redisSub = require('redis-connection')('subscriber');
 
 // do things with redisClient and redisSub in your app...
 // when you want to close both connections simply call:
-require('redis-connection-manager').killall();
+require('redis-connection').killall();
 ```
 
-### Using `redis-connection-manager` with `env2`
+### Using `redis-connection` with `env2`
 
-If you are using [**env2**](https://github.com/dwyl/env2) to load your configuration file, simply require `env2` before requiring `redis-connection-manager`:
+If you are using [**env2**](https://github.com/dwyl/env2) to load your configuration file, simply require `env2` before requiring `redis-connection`:
 
 ```js
 require('env2')('.env'); // load the redis URL
-var redisClient = require('redis-connection-manager')();
+var redisClient = require('redis-connection')();
 // now use your redis connection
 ```
 
 ### Using `rejson` with `redis-connection-manager`
 
-If you are using `rejson` module with your Redis build, you can enable rejson commands by setting the ENABLE_REJSON flag before requiring `redis-connection-manager`.
+If you are using `rejson` module with your Redis build, you can enable rejson commands by setting the ENABLE_REJSON flag before requiring `redis-connection`.
 
 ```js
 process.env.ENABLE_REJSON = true;
-var redisClient = require('redis-connection-manager')();
+var redisClient = require('redis-connection')();
 // now use your redis connection
 ````
 
@@ -133,7 +139,7 @@ or want to have more configuration options, please let us know!
 ## *Contributors*
 
 As with all @dwyl projects
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/redis-connection-manager/issues)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/redis-connection/issues)
 
 ### Environment Variables
 
